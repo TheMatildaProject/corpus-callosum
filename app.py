@@ -4,7 +4,7 @@ from app.jobs.count_words_at_url import count_words_at_url
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-q = Queue(connection=Redis("queue"))
+q = Queue("corpus-callosum", connection=Redis("queue"))
 
 @app.route('/', methods=['POST'])
 def run():

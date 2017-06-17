@@ -13,3 +13,12 @@ queue:
   image: redis:3.0-alpine
   ports:
     - "6000:6379"
+
+worker:
+  container_name: corpus-callosum-worker
+  image: corpus-callosum:latest
+  volumes:
+    - ".:/app"
+  links:
+    - queue:queue
+  command: ["rq", "worker", "-c", "config.worker"] 
