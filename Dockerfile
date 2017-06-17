@@ -6,7 +6,7 @@ WORKDIR /app
 
 ADD . .
 
-RUN echo "export FLASK_APP=/app/app.py; flask run --host=0.0.0.0 --port=5000" > /run.sh
+RUN echo "python /app/app.py -m flask run" > /run.sh
 
 RUN pip install -r requirements.txt
 

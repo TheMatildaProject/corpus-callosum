@@ -1,0 +1,15 @@
+corpus-callosum:
+  container_name: corpus-callosum
+  image: corpus-callosum:latest
+  ports:
+    - "5005:5000"
+  volumes:
+    - ".:/app"
+  links:
+    - queue:queue
+
+queue:
+  container_name: corpus-callosum-queue
+  image: redis:3.0-alpine
+  ports:
+    - "6000:6379"
