@@ -1,1 +1,3 @@
 .build-cheatsheet
+__pycache__
+*.pyc
