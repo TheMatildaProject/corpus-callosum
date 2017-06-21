@@ -5,6 +5,10 @@ corpus-callosum:
     - "5005:5000"
   volumes:
     - ".:/app"
+  environment:
+    - SERVICES_AUDITORY_CORTEX=
+    - SERVICES_BROCAS_AREA=
+    - SERVICES_CEREBRUM=
   links:
     - queue:queue
 
@@ -19,6 +23,10 @@ worker:
   image: corpus-callosum:latest
   volumes:
     - ".:/app"
+  environment:
+    - SERVICES_AUDITORY_CORTEX=
+    - SERVICES_BROCAS_AREA=
+    - SERVICES_CEREBRUM=
   links:
     - queue:queue
   command: ["rq", "worker", "-c", "config.worker"] 
