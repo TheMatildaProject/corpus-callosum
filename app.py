@@ -1,8 +1,8 @@
-from redis import Redis
-from rq import Queue
-from flask import Flask, request, jsonify
 from app.jobs.auditory_cortex import auditory_cortex
 from app.jobs.cerebrum import cerebrum
+from flask import Flask, request, jsonify
+from redis import Redis
+from rq import Queue
 import json
 
 app = Flask(__name__)
@@ -12,6 +12,9 @@ q = Queue("corpus-callosum", connection=Redis("queue"))
 def run():
     if not request.json or not 'action' in request.json:
         return jsonify({'error': 'Missing action'}), 400
+
+    if not request.json or not 'origin' in request.json:
+        return jsonify({'error': 'Missing origin'}), 400
     
     triage_result = runTriage(request.json)
 
@@ -24,14 +27,16 @@ def run():
 def runTriage(request_data):
     # Commands
     if request_data['action'] == "command":
-        if 'audio' in request_data['parameters']:
-            q.enqueue(auditory_cortex, request_data['parameters']['audio'])
-        elif 'text' in request_data.paramters:
-            q.enqueue(cerebrum, request_data['parameters']['text'])
-        else:
-            return False
+        queueCommand(request_data['origin'], request_data['parameters'])
+        return True
+    else:
+        return False
 
-    return True
+def queueCommand(origin, parameters):
+    if 'audio' in parameters:
+        q.enqueue(auditory_cortex, parameters['audio'], origin)
+    elif 'text' in parameters:
+        q.enqueue(cerebrum, parameters['text'], origin)
 
 
 if __name__ == "__main__":

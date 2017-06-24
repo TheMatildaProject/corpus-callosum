@@ -6,10 +6,10 @@ class Services():
         return os.getenv('SERVICES_AUDITORY_CORTEX')
 
     @staticmethod
-    def getAuditoryCortex():
+    def getBrocasArea():
         return os.getenv('SERVICES_BROCAS_AREA')
 
     @staticmethod
-    def getAuditoryCortex():
+    def getCerebrum():
         return os.getenv('SERVICES_CEREBRUM')
     
