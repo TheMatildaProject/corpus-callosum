@@ -18,7 +18,7 @@ def auditory_cortex(audio, origin):
         
         # Forwards to cerebrum
         q = Queue("corpus-callosum", connection=Redis("queue"))
-        q.enqueue(cerebrum, responseBody['text'], origin)
+        q.enqueue(cerebrum, responseBody, origin)
     except requests.exceptions.RequestException:
         return False
        

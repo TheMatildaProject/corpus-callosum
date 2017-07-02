@@ -36,7 +36,7 @@ def queueCommand(origin, parameters):
     if 'audio' in parameters:
         q.enqueue(auditory_cortex, parameters['audio'], origin)
     elif 'text' in parameters:
-        q.enqueue(cerebrum, parameters['text'], origin)
+        q.enqueue(cerebrum, parameters, origin)
 
 
 if __name__ == "__main__":
